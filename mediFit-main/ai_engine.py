@@ -505,3 +505,84 @@ Rules:
     except Exception as e:
         return {"error": str(e), "summary": "", "values": [], "actions": [], "urgency": "monitor"}
 
+
+# ── Fitness Therapeutic Routine Generator ─────────────────────
+
+FITNESS_SYSTEM = """You are mediFit Fitness AI, a certified therapeutic exercise specialist.
+You generate ONLY restorative, low-to-moderate intensity exercise prescriptions for patients
+with chronic conditions. You NEVER suggest high-intensity or high-impact workouts.
+Safety is your top priority. All output must be valid JSON."""
+
+
+def gemini_fitness_analyze(
+    conditions: List[str],
+    equipment: List[str],
+    hindrance: str,
+    feedback: Optional[str] = None,
+    previous_routine: Optional[str] = None,
+) -> dict:
+    """Generate a therapeutic fitness routine using Gemini AI."""
+    client = get_gemini_client()
+    if client is None:
+        return {"error": "Google API key not configured."}
+
+    feedback_section = ""
+    if feedback == "helped" and previous_routine:
+        feedback_section = f"""
+FEEDBACK CONTEXT:
+The patient reported that the PREVIOUS routine HELPED. Apply micro-progression:
+- Slightly increase repetitions (by 1-2 reps) OR add one gentle restorative stretch.
+- Maintain all safety limits.
+Previous routine: {previous_routine}
+"""
+    elif feedback == "discomfort" and previous_routine:
+        feedback_section = f"""
+FEEDBACK CONTEXT:
+The patient reported DISCOMFORT from the previous routine. You MUST:
+- DISCARD the prior routine entirely.
+- Re-analyze the limitations.
+- Generate a NEW, gentler, restorative routine that works AROUND the reported limitation.
+Previous routine (DISCARD THIS): {previous_routine}
+"""
+
+    prompt = f"""Analyze this patient's fitness readiness and generate a therapeutic exercise routine.
+
+PATIENT DATA:
+- Conditions: {', '.join(conditions) if conditions else 'None reported'}
+- Available Equipment: {', '.join(equipment) if equipment else 'No equipment (bodyweight only)'}
+- Reported Hindrance/Symptoms: {hindrance if hindrance else 'None reported'}
+{feedback_section}
+
+STRICT RULES:
+1. ONLY suggest exercises using the patient's stated equipment. If no equipment, use bodyweight only.
+2. NO high-intensity or high-impact exercises.
+3. All exercises must be restorative and therapeutic for the patient's conditions.
+4. NO wearable or sensor data references.
+5. If hindrance indicates SEVERE issues (acute joint inflammation, sharp chest pain, breathing difficulty, acute injury), set status to "Restricted" and do NOT prescribe exercises.
+
+Return ONLY valid JSON with this EXACT structure (no markdown, no code fences):
+{{
+  "status": "Cleared" | "Modified" | "Restricted",
+  "reasoning": "Explanation of how condition and hindrances were processed",
+  "hindrance_severity": "mild" | "moderate" | "severe" | "none",
+  "equipment_used": ["list of equipment from inventory actually used"],
+  "exercises": [
+    {{
+      "name": "Exercise Name",
+      "sets_duration": "3 sets x 10 reps" or "2 min hold",
+      "target_area": "Lower body / Core / Upper body / Full body",
+      "therapeutic_intent": "Why this exercise helps the condition"
+    }}
+  ],
+  "precautions": ["List of safety precautions, rest times, medication timing warnings"],
+  "next_step": "Post-workout feedback prompt explaining the feedback loop"
+}}"""
+
+    try:
+        response = gemini_generate(client, prompt, system=FITNESS_SYSTEM)
+        cleaned = re.sub(r"^```json\s*|^```\s*|\s*```$", "", response.strip(), flags=re.MULTILINE)
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        return {"error": "Could not parse AI response. Please try again."}
+    except Exception as e:
+        return {"error": str(e)}

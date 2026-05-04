@@ -5,7 +5,8 @@ import {
   ChevronLeft, ChevronRight, CheckCircle2, User, Pill,
   Stethoscope, Sparkles, CalendarDays,
   Heart, BedDouble, Footprints, Apple, Droplets,
-  FileText, LayoutGrid, Settings, ChevronDown, Trash2
+  FileText, LayoutGrid, Settings, ChevronDown, Trash2,
+  Dumbbell
 } from 'lucide-react';
 import { analyzePatient, fetchMeta, fetchRiskTimeline } from './api';
 import type { Patient, Analysis, TimelinePoint } from './types';
@@ -31,6 +32,9 @@ import { ChatTab }      from './components/tabs/ChatTab';
 import { TrendsTab }    from './components/tabs/TrendsTab';
 import { ScheduleTab }  from './components/tabs/ScheduleTab';
 
+// Fitness tab
+import { FitnessTab }   from './components/tabs/FitnessTab';
+
 // ── Tab config ─────────────────────────────────────────────────────
 
 const HEALTH_TABS = [
@@ -54,9 +58,14 @@ const ANALYSIS_TABS = [
   { id: 'trends',    label: 'Trends',         icon: History      },
 ] as const;
 
+const FITNESS_TABS = [
+  { id: 'fitness', label: 'Fitness', icon: Dumbbell },
+] as const;
+
 type HealthTabId   = typeof HEALTH_TABS[number]['id'];
 type AnalysisTabId = typeof ANALYSIS_TABS[number]['id'];
-type Section = 'health' | 'analysis';
+type FitnessTabId  = typeof FITNESS_TABS[number]['id'];
+type Section = 'health' | 'analysis' | 'fitness';
 
 /* ── Small field label ──────────────────────────────────── */
 const FieldLabel: React.FC<{ children: React.ReactNode; badge?: string }> = ({ children, badge }) => (
@@ -75,6 +84,7 @@ export default function App() {
   const [section, setSection]             = useState<Section>('health');
   const [healthTab, setHealthTab]         = useState<HealthTabId>('profile');
   const [analysisTab, setAnalysisTab]     = useState<AnalysisTabId>('welcome');
+  const [fitnessTab, setFitnessTab]       = useState<FitnessTabId>('fitness');
   const [apiKey, setApiKey]               = useState('');
   const [mode, _setMode]                   = useState<'Patient' | 'Doctor'>('Patient');
   const [isDark, setIsDark]               = useState(true);
@@ -171,7 +181,7 @@ export default function App() {
   const inputCls = `w-full border border-line bg-bg rounded-xl px-3.5 py-2.5 text-[13px]
     text-fg placeholder-fg3 focus:outline-none focus:border-accent transition-colors`;
 
-  const activeTabs = section === 'health' ? HEALTH_TABS : ANALYSIS_TABS;
+  const activeTabs = section === 'health' ? HEALTH_TABS : section === 'analysis' ? ANALYSIS_TABS : FITNESS_TABS;
 
   /* ── API Key Gate ─────────────────────────────────────────── */
   if (!apiKey) {
@@ -351,6 +361,17 @@ export default function App() {
               <Shield className="w-3 h-3" />
               Meds
             </button>
+            <button
+              onClick={() => switchSection('fitness')}
+              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11.5px] font-semibold transition-all ${
+                section === 'fitness'
+                  ? 'bg-emerald-500 text-white shadow-sm'
+                  : 'text-fg3 hover:text-fg'
+              }`}
+            >
+              <Dumbbell className="w-3 h-3" />
+              Fitness
+            </button>
           </div>
         </div>
 
@@ -498,6 +519,40 @@ export default function App() {
           </div>
         )}
 
+        {/* ── Fitness section sidebar info ── */}
+        {section === 'fitness' && (
+          <div className={`flex-1 overflow-y-auto transition-opacity duration-200
+            ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            <div className="px-5 pt-4 pb-4">
+              <div className="p-4 rounded-xl bg-bg border border-line space-y-3">
+                <div className="flex items-center gap-2">
+                  <Dumbbell className="w-3.5 h-3.5 text-emerald-500" />
+                  <span className="text-[11px] uppercase tracking-[0.14em] font-semibold text-fg3">Fitness AI</span>
+                </div>
+                <p className="text-[11.5px] text-fg2 leading-relaxed">
+                  Generate therapeutic exercise routines tailored to your health conditions and available equipment.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11.5px] text-fg2">Conditions</span>
+                    <span className="text-[12px] font-bold font-grotesk text-fg">{patient.conditions.length}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11.5px] text-fg2">Medications</span>
+                    <span className="text-[12px] font-bold font-grotesk text-fg">{patient.medications.length}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 p-4 rounded-xl bg-emerald-500/8 border border-emerald-500/20">
+                <p className="text-[11.5px] text-fg2 leading-relaxed">
+                  <span className="font-semibold text-emerald-500">Safety first:</span> Only restorative, low-impact exercises are prescribed. High-intensity workouts are never suggested.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ─ Settings / API Key — pinned to sidebar bottom ─ */}
         <div className={`px-4 pb-4 pt-2 border-t border-line shrink-0 transition-opacity duration-200
           ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
@@ -583,11 +638,20 @@ export default function App() {
             <button
               onClick={() => switchSection('analysis')}
               title="Medication Analysis"
-              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors mb-2 ${
+              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors mb-1 ${
                 section === 'analysis' ? 'bg-accent text-white' : 'text-fg3 hover:bg-card2 hover:text-fg'
               }`}
             >
               <Shield className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => switchSection('fitness')}
+              title="Therapeutic Fitness"
+              className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors mb-2 ${
+                section === 'fitness' ? 'bg-emerald-500 text-white' : 'text-fg3 hover:bg-card2 hover:text-fg'
+              }`}
+            >
+              <Dumbbell className="w-4 h-4" />
             </button>
             <div className="w-6 h-px bg-line mb-1" />
             {activeTabs.map((tab) => {
@@ -653,6 +717,16 @@ export default function App() {
           )}
 
           {/* Quick Actions (Mic & Theme) */}
+          {section === 'fitness' && (
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                <Dumbbell className="w-3.5 h-3.5 text-emerald-500" />
+              </div>
+              <span className="text-[13px] font-semibold text-fg">Therapeutic Fitness</span>
+            </div>
+          )}
+
+          {/* Quick Actions (Mic & Theme) */}
           <div className="flex items-center gap-2 ml-auto">
             <VoiceAssistant currentTab={section === 'health' ? healthTab : 'none'} />
             <button
@@ -710,6 +784,13 @@ export default function App() {
           {section === 'health' && healthTab === 'lifestyle' && <div key="lifestyle" className="tab-panel"><LifestyleTab /></div>}
           {section === 'health' && healthTab === 'lab'       && <div key="lab"       className="tab-panel"><LabReportsTab apiKey={apiKey} /></div>}
           {section === 'health' && healthTab === 'insights'  && <div key="insights"  className="tab-panel"><InsightsTab /></div>}
+
+          {/* ── Fitness tab ── */}
+          {section === 'fitness' && (
+            <div key="fitness" className="tab-panel">
+              <FitnessTab patient={patient} apiKey={apiKey} />
+            </div>
+          )}
 
           {/* ── Medication Analysis tabs ── */}
           {section === 'analysis' && analysisTab === 'welcome' && (

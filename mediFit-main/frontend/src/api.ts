@@ -181,3 +181,23 @@ export async function fetchSchedule(
   });
   return handleResponse(res);
 }
+
+// ── Fitness Analysis ──────────────────────────────────────
+
+export async function analyzeFitness(
+  data: {
+    conditions: string[];
+    equipment: string[];
+    hindrance: string;
+    feedback?: string | null;
+    previous_routine?: string | null;
+  },
+  apiKey: string,
+): Promise<any> {
+  const res = await fetch(`${BASE}/fitness_analyze`, {
+    method: 'POST',
+    headers: authHeaders(apiKey),
+    body: JSON.stringify(data),
+  });
+  return handleResponse(res);
+}

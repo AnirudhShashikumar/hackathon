@@ -23,6 +23,7 @@ from pydantic import BaseModel
 
 from ai_engine import (
     gemini_ask,
+    gemini_fitness_analyze,
     gemini_full_analysis,
     gemini_lab_analyze,
     gemini_parse_medications,
@@ -161,6 +162,14 @@ class PdfPayload(BaseModel):
 class LabAnalyzePayload(BaseModel):
     pdf_base64: str
     file_name: str = "lab_report.pdf"
+
+
+class FitnessPayload(BaseModel):
+    conditions: List[str] = []
+    equipment: List[str] = []
+    hindrance: str = ""
+    feedback: Optional[str] = None
+    previous_routine: Optional[str] = None
 
 
 # ── Routes ────────────────────────────────────────────────────────
@@ -677,3 +686,24 @@ def lab_analyze(payload: LabAnalyzePayload, request: Request):
         "actions":  result.get("actions", []),
         "urgency":  result.get("urgency", "monitor"),
     }
+
+
+@app.post("/api/fitness_analyze")
+def fitness_analyze(payload: FitnessPayload, request: Request):
+    """Generate a therapeutic fitness routine using Gemini AI."""
+    _set_api_key(request)
+    if not get_gemini_client():
+        raise HTTPException(status_code=400, detail="Google API Key required.")
+
+    result = gemini_fitness_analyze(
+        conditions=payload.conditions,
+        equipment=payload.equipment,
+        hindrance=payload.hindrance,
+        feedback=payload.feedback,
+        previous_routine=payload.previous_routine,
+    )
+
+    if "error" in result and not result.get("exercises"):
+        raise HTTPException(status_code=502, detail=result["error"])
+
+    return result
