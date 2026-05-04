@@ -90,7 +90,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
     { label: 'Total Risk Score',      value: risk.total,                 color: riskColor,   glow: riskColor,   icon: Zap         },
     { label: 'Severe Interactions',   value: severeCount,                color: '#ef4444',   glow: '#ef4444',   icon: ShieldAlert  },
     { label: 'Moderate Interactions', value: modCount,                   color: '#f59e0b',   glow: '#f59e0b',   icon: BadgeInfo    },
-    { label: 'Medications',           value: patient.medications.length, color: '#4a82e8',   glow: '#4a82e8',   icon: Brain        },
+    { label: 'Medications',           value: patient.medications.length, color: '#22C55E',   glow: '#22C55E',   icon: Brain        },
   ];
 
   const chartFill      = 'url(#areaGrad)';
@@ -115,9 +115,9 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-medium
             transition-all duration-200 disabled:opacity-50 press-feedback"
           style={{
-            background: 'linear-gradient(135deg, #1B4DCC 0%, #4a82e8 100%)',
+            background: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)',
             color: '#fff',
-            boxShadow: '0 4px 20px #1B4DCC40',
+            boxShadow: '0 4px 20px #16A34A40',
           }}>
           <Download className="w-4 h-4" />
           {loadingPdf ? 'Generating…' : 'Export PDF'}
@@ -246,8 +246,8 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
                 <AreaChart data={timeline} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%"  stopColor="#4a82e8" stopOpacity={0.35} />
-                      <stop offset="95%" stopColor="#4a82e8" stopOpacity={0.02} />
+                      <stop offset="5%"  stopColor="#22C55E" stopOpacity={0.35} />
+                      <stop offset="95%" stopColor="#22C55E" stopOpacity={0.02} />
                     </linearGradient>
                   </defs>
                   <XAxis dataKey="medication" stroke="var(--fg3-raw)" fontSize={10}
@@ -256,18 +256,18 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
                   <Tooltip
                     contentStyle={{
                       backgroundColor: 'var(--card-raw)',
-                      border: '1px solid #4a82e840',
+                      border: '1px solid #22C55E40',
                       borderRadius: '10px',
                       color: 'var(--fg-raw)',
                       fontSize: '12px',
-                      boxShadow: '0 4px 20px #4a82e820',
+                      boxShadow: '0 4px 20px #22C55E20',
                     }}
                   />
                   <Area
-                    type="monotone" dataKey="score" stroke="#4a82e8"
+                    type="monotone" dataKey="score" stroke="#22C55E"
                     strokeWidth={2.5} fill={chartFill}
-                    dot={{ fill: '#4a82e8', r: 4, strokeWidth: 2, stroke: 'var(--card-raw)' }}
-                    activeDot={{ r: 7, fill: '#fff', stroke: '#4a82e8', strokeWidth: 2 }}
+                    dot={{ fill: '#22C55E', r: 4, strokeWidth: 2, stroke: 'var(--card-raw)' }}
+                    activeDot={{ r: 7, fill: '#fff', stroke: '#22C55E', strokeWidth: 2 }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -328,19 +328,19 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
       {patterns.length > 0 && (
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-4 rounded-full" style={{ background: '#4a82e8', boxShadow: '0 0 8px #4a82e8' }} />
+            <div className="w-1.5 h-4 rounded-full" style={{ background: '#22C55E', boxShadow: '0 0 8px #22C55E' }} />
             <h3 className="text-[15px] font-semibold text-fg tracking-tight">Detected Patterns</h3>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {patterns.map((p, i) => (
               <div key={i} className="p-4 rounded-2xl border relative overflow-hidden"
                 style={{
-                  background: 'linear-gradient(135deg, color-mix(in srgb, #4a82e8 6%, var(--card-raw)), var(--card-raw))',
-                  borderColor: 'color-mix(in srgb, #4a82e8 25%, var(--line-raw))',
+                  background: 'linear-gradient(135deg, color-mix(in srgb, #22C55E 6%, var(--card-raw)), var(--card-raw))',
+                  borderColor: 'color-mix(in srgb, #22C55E 25%, var(--line-raw))',
                 }}>
                 <div className="absolute top-0 left-0 right-0 h-[2px]"
-                  style={{ background: 'linear-gradient(90deg, transparent, #4a82e8, transparent)' }} />
-                <h4 className="font-semibold text-[14px] mb-1" style={{ color: '#4a82e8' }}>
+                  style={{ background: 'linear-gradient(90deg, transparent, #22C55E, transparent)' }} />
+                <h4 className="font-semibold text-[14px] mb-1" style={{ color: '#22C55E' }}>
                   {p.icon} {p.title}
                 </h4>
                 <p className="text-fg2 text-[13px] leading-relaxed">{p.description}</p>
@@ -385,7 +385,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({ patient, analysis, a
                         {ix.severity}
                       </span>
                       <span className="text-[9px] uppercase tracking-widest font-mono px-2 py-0.5 rounded"
-                        style={{ background: '#4a82e820', color: '#4a82e8', border: '1px solid #4a82e840' }}>
+                        style={{ background: '#22C55E20', color: '#22C55E', border: '1px solid #22C55E40' }}>
                         {ix.evidence_level.replace('_', ' ')}
                       </span>
                     </div>

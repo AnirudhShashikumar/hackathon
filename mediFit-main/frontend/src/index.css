@@ -14,9 +14,9 @@
   --fg2-raw:      #6B6860;
   --fg3-raw:      #9C9994;
   /* Accent */
-  --accent-raw:       #1B4DCC;
-  --accent-bg-raw:    rgba(27, 77, 204, 0.08);
-  --accent-bd-raw:    rgba(27, 77, 204, 0.2);
+  --accent-raw:       #16A34A;
+  --accent-bg-raw:    rgba(22, 163, 74, 0.08);
+  --accent-bd-raw:    rgba(22, 163, 74, 0.2);
   /* Risk */
   --risk-hi-raw:  #DC2626;
   --risk-md-raw:  #C2850A;
@@ -40,9 +40,9 @@
   --fg-raw:       #F0EDE6;
   --fg2-raw:      #8A8780;
   --fg3-raw:      #5A5752;
-  --accent-raw:       #4A82E8;
-  --accent-bg-raw:    rgba(74, 130, 232, 0.1);
-  --accent-bd-raw:    rgba(74, 130, 232, 0.25);
+  --accent-raw:       #4ADE80;
+  --accent-bg-raw:    rgba(74, 222, 128, 0.1);
+  --accent-bd-raw:    rgba(74, 222, 128, 0.25);
   --risk-hi-raw:  #EF4444;
   --risk-md-raw:  #F59E0B;
   --risk-lo-raw:  #22C55E;

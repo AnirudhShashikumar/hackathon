@@ -173,6 +173,94 @@ export default function App() {
 
   const activeTabs = section === 'health' ? HEALTH_TABS : ANALYSIS_TABS;
 
+  /* ── API Key Gate ─────────────────────────────────────────── */
+  if (!apiKey) {
+    return (
+      <div className="min-h-screen bg-bg flex items-center justify-center p-6 font-sans">
+        <div className="w-full max-w-md flex flex-col items-center gap-8 animate-slide-up">
+
+          {/* Logo + Brand */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="w-20 h-20 rounded-3xl bg-white shadow-lg border border-line/50 overflow-hidden flex items-center justify-center">
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
+            </div>
+            <div className="text-center">
+              <h1 className="text-[36px] font-extrabold font-grotesk tracking-tight text-fg leading-none">
+                medi<span style={{
+                  background: 'linear-gradient(135deg, #16A34A 0%, #4ADE80 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Fit</span>
+              </h1>
+              <p className="text-[14px] text-fg2 mt-2 leading-relaxed">
+                AI-powered medication safety & health analysis
+              </p>
+            </div>
+          </div>
+
+          {/* API Key Card */}
+          <div className="w-full rounded-2xl border border-line bg-card p-6 space-y-5
+            shadow-lg shadow-black/5">
+
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center">
+                  <KeyRound className="w-4 h-4 text-accent" />
+                </div>
+                <div>
+                  <h2 className="text-[15px] font-semibold text-fg">Connect your AI</h2>
+                  <p className="text-[11.5px] text-fg3">Enter your Google Gemini API key to get started</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.14em] font-semibold text-fg3 mb-1.5 block">
+                  Gemini API Key
+                </label>
+                <input
+                  type="password"
+                  placeholder="AIzaSy…"
+                  onChange={(e) => saveApiKey(e.target.value)}
+                  className="w-full border border-line bg-bg rounded-xl px-4 py-3 text-[14px] text-fg
+                    placeholder-fg3 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20
+                    transition-all"
+                  autoFocus
+                />
+              </div>
+
+              <p className="text-[11px] text-fg3 leading-relaxed">
+                Your key is stored locally in your browser. It is never sent to our servers.
+                <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer"
+                  className="text-accent hover:underline ml-1 font-medium">
+                  Get a free key →
+                </a>
+              </p>
+            </div>
+          </div>
+
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl border border-line bg-card
+              text-[12px] text-fg2 hover:bg-card2 transition-colors press-feedback"
+          >
+            {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+            {isDark ? 'Light mode' : 'Dark mode'}
+          </button>
+
+          {/* Footer */}
+          <div className="flex items-center gap-2 text-[11px] text-fg3">
+            <Shield className="w-3 h-3 shrink-0" />
+            No data stored on servers · For informational use only
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen bg-bg text-fg font-sans">
 
