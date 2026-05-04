@@ -192,7 +192,7 @@ export default function App() {
           {/* Logo + Brand */}
           <div className="flex flex-col items-center gap-4">
             <div className="w-20 h-20 rounded-3xl bg-white shadow-lg border border-line/50 overflow-hidden flex items-center justify-center">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
             </div>
             <div className="text-center">
               <h1 className="text-[36px] font-extrabold font-grotesk tracking-tight text-fg leading-none">
@@ -292,7 +292,7 @@ export default function App() {
             ${sidebarOpen ? 'opacity-100 max-w-full' : 'opacity-0 max-w-0 pointer-events-none'}`}>
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shrink-0
               shadow-sm border border-line/50 overflow-hidden">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
             </div>
             <div className="min-w-0 flex flex-col justify-center">
               <div className="text-[18px] font-extrabold font-grotesk tracking-tighter text-fg leading-none">
@@ -304,7 +304,7 @@ export default function App() {
           {/* Collapsed: icon only */}
           {!sidebarOpen && (
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm border border-line/50 overflow-hidden">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
             </div>
           )}
 
