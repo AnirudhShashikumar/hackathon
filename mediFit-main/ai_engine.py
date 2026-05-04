@@ -1,5 +1,5 @@
 """
-MediTwin Lite — Gemini AI Engine
+mediFit — Gemini AI Engine
 =================================
 All Google Gemini API functions: analysis, chat,
 NLP medication parsing, and safer regimen generation.
@@ -20,7 +20,7 @@ except ImportError:
 
 GEMINI_MODEL = "gemini-2.5-flash"
 
-SYSTEM_PROMPT = """You are MediTwin Lite, an expert medication-safety AI assistant.
+SYSTEM_PROMPT = """You are mediFit, an expert medication-safety AI assistant.
 You analyze drug interactions in the context of a patient's complete medical profile.
 
 Guidelines:

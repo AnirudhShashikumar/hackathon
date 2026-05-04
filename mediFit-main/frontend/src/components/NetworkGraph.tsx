@@ -1,5 +1,5 @@
 /**
- * MediTwin Lite — Interaction Network (Apple-style)
+ * mediFit — Interaction Network (Apple-style)
  * Force-directed layout, clean minimal canvas render
  * No glow, no particles — just clear geometry and typography
  */

@@ -44,13 +44,12 @@ export const WelcomeTab: React.FC<WelcomeTabProps> = ({ apiKey, onSetMeds }) => 
           {/* Headline */}
           <div className="space-y-2">
             <h1 className="text-[40px] font-bold font-grotesk tracking-tight text-fg leading-[1.05]">
-              MediTwin{' '}
               <span style={{
                 background: 'linear-gradient(135deg, #1B4DCC 0%, #5D9BFF 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}>
-                Lite
+                mediFit
               </span>
             </h1>
             <p className="text-[15px] text-fg2 leading-relaxed">

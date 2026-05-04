@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────
-//  MediTwin Lite — API Client
+//  mediFit — API Client
 //  Single source of truth for all backend calls.
 // ─────────────────────────────────────────────────────────
 
@@ -160,7 +160,7 @@ export async function downloadPDF(
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `MediTwin_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
+  a.download = `mediFit_Report_${new Date().toISOString().slice(0, 10)}.pdf`;
   a.style.display = 'none';
   document.body.appendChild(a);
   a.click();

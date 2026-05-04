@@ -259,8 +259,8 @@ export const VitalsTab: React.FC = () => {
 
   React.useEffect(() => {
     reload();
-    window.addEventListener('meditwin-data-update', reload);
-    return () => window.removeEventListener('meditwin-data-update', reload);
+    window.addEventListener('medifit-data-update', reload);
+    return () => window.removeEventListener('medifit-data-update', reload);
   }, [reload]);
 
   const handleAdd = (r: Omit<VitalReading, 'id'>) => {

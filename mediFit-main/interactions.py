@@ -1,5 +1,5 @@
 """
-MediTwin Lite — Curated Interaction & Drug Property Databases
+mediFit — Curated Interaction & Drug Property Databases
 =============================================================
 """
 from typing import Dict, List, Optional

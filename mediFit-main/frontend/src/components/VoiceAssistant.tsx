@@ -151,7 +151,7 @@ export const VoiceAssistant: React.FC<VoiceAssistantProps> = ({ currentTab }) =>
       
       setSaveComplete(true);
       // Let standard React lifecycle know data changed if needed
-      window.dispatchEvent(new Event('meditwin-data-update'));
+      window.dispatchEvent(new Event('medifit-data-update'));
 
       setTimeout(() => {
         setShowModal(false);

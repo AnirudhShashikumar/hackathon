@@ -94,7 +94,7 @@ export default function App() {
 
   /* Init */
   useEffect(() => {
-    const stored = localStorage.getItem('meditwin-theme');
+    const stored = localStorage.getItem('medifit-theme');
     const dark = stored !== 'light';
     setIsDark(dark);
     document.documentElement.classList.toggle('dark', dark);
@@ -102,24 +102,24 @@ export default function App() {
     const storedKey = localStorage.getItem('google_api_key') || '';
     setApiKey(storedKey);
 
-    const storedSidebar = localStorage.getItem('meditwin-sidebar');
+    const storedSidebar = localStorage.getItem('medifit-sidebar');
     if (storedSidebar === 'closed') setSidebarOpen(false);
 
-    const storedSection = localStorage.getItem('meditwin-section') as Section | null;
+    const storedSection = localStorage.getItem('medifit-section') as Section | null;
     if (storedSection) setSection(storedSection);
 
     fetchMeta().then(setMeta).catch(console.error);
 
     const handleDataUpdate = () => setDataVersion(v => v + 1);
-    window.addEventListener('meditwin-data-update', handleDataUpdate);
-    return () => window.removeEventListener('meditwin-data-update', handleDataUpdate);
+    window.addEventListener('medifit-data-update', handleDataUpdate);
+    return () => window.removeEventListener('medifit-data-update', handleDataUpdate);
   }, []);
 
   const toggleTheme = () => {
     const next = !isDark;
     setIsDark(next);
     document.documentElement.classList.toggle('dark', next);
-    localStorage.setItem('meditwin-theme', next ? 'dark' : 'light');
+    localStorage.setItem('medifit-theme', next ? 'dark' : 'light');
   };
 
   const saveApiKey = (val: string) => {
@@ -158,13 +158,13 @@ export default function App() {
 
   const switchSection = (s: Section) => {
     setSection(s);
-    localStorage.setItem('meditwin-section', s);
+    localStorage.setItem('medifit-section', s);
   };
 
   const toggleSidebar = () => {
     const next = !sidebarOpen;
     setSidebarOpen(next);
-    localStorage.setItem('meditwin-sidebar', next ? 'open' : 'closed');
+    localStorage.setItem('medifit-sidebar', next ? 'open' : 'closed');
   };
 
   /* ── Input base styles ──────────────────────────────────── */
@@ -194,14 +194,11 @@ export default function App() {
             ${sidebarOpen ? 'opacity-100 max-w-full' : 'opacity-0 max-w-0 pointer-events-none'}`}>
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shrink-0
               shadow-sm border border-line/50 overflow-hidden">
-              <img src="/meditwin-logo.png" alt="MediTwin" className="w-full h-full object-cover scale-[1.9]" />
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
             </div>
             <div className="min-w-0 flex flex-col justify-center">
               <div className="text-[18px] font-extrabold font-grotesk tracking-tighter text-fg leading-none">
-                MediTwin
-              </div>
-              <div className="text-[8.5px] uppercase tracking-[0.25em] text-fg3 font-semibold mt-1">
-                Lite Edition
+                mediFit
               </div>
             </div>
           </div>
@@ -209,7 +206,7 @@ export default function App() {
           {/* Collapsed: icon only */}
           {!sidebarOpen && (
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm border border-line/50 overflow-hidden">
-              <img src="/meditwin-logo.png" alt="MediTwin" className="w-full h-full object-cover scale-[1.9]" />
+              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-cover scale-[1.9]" />
             </div>
           )}
 

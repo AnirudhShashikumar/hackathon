@@ -1,5 +1,5 @@
 /**
- * MediTwin Lite — Holographic 3D Risk Gauge
+ * mediFit — Holographic 3D Risk Gauge
  * Pure canvas: animated arc sweep, glow rings, rotating halo, floating score
  */
 import React, { useEffect, useRef } from 'react';

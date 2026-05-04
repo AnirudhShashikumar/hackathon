@@ -1,4 +1,4 @@
-# MediTwin Lite — Backend Dependencies
+# mediFit — Backend Dependencies
 # Install: pip install -r requirements.txt
 
 # Core API framework

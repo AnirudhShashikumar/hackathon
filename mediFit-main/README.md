@@ -1,6 +1,6 @@
-# 🧠 MediTwin Lite
+# 🧠 mediFit
 
-MediTwin Lite is an ultra-premium, AI-powered medication safety and health analysis platform. Designed with a custom kinetic UI known as **"The Void Engine,"** it bridges the gap between patients and healthcare services by offering real-time drug interaction tracking, automated lab report analysis, and personalized AI medical guidance.
+mediFit is an ultra-premium, AI-powered medication safety and health analysis platform. Designed with a custom kinetic UI known as **"The Void Engine,"** it bridges the gap between patients and healthcare services by offering real-time drug interaction tracking, automated lab report analysis, and personalized AI medical guidance.
 
 ---
 
@@ -47,10 +47,6 @@ MediTwin Lite is an ultra-premium, AI-powered medication safety and health analy
 Navigate to the root directory and install the Python dependencies:
 
 ```bash
-# Clone the repository
-git clone [https://github.com/your-username/meditwin.git](https://github.com/your-username/meditwin.git)
-cd meditwin
-
 # Install Python dependencies
 pip install -r requirements.txt
 
@@ -59,3 +55,13 @@ echo "GOOGLE_API_KEY=your_gemini_api_key" > .env
 
 # Run the FastAPI server
 uvicorn main:app --reload
+```
+
+### 2. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.

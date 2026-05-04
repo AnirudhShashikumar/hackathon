@@ -1,5 +1,5 @@
 /**
- * MediTwin Lite — Futuristic Risk Dashboard
+ * mediFit — Futuristic Risk Dashboard
  * Features: animated metric counters, holographic gauge, canvas timeline,
  * glassmorphism cards, glow accents, futuristic interaction badges
  */

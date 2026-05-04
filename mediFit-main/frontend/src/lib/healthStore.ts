@@ -1,5 +1,5 @@
 /**
- * MediTwin Lite — Health Data Store
+ * mediFit — Health Data Store
  * All metrics persisted to localStorage. Manual entry only.
  */
 

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────
-//  MediTwin Lite — Shared TypeScript Interfaces
+//  mediFit — Shared TypeScript Interfaces
 // ─────────────────────────────────────────────────────────
 
 export interface Patient {

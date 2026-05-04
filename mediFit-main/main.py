@@ -1,5 +1,5 @@
 """
-MediTwin Lite — FastAPI Backend
+mediFit — FastAPI Backend
 ================================
 Serves the React frontend with medication safety analysis,
 live FDA data, Gemini AI reasoning, risk scoring, and PDF export.
@@ -43,7 +43,7 @@ from interactions import (
 
 # ── App & CORS ────────────────────────────────────────────────────
 
-app = FastAPI(title="MediTwin Lite API", version="1.0.0")
+app = FastAPI(title="mediFit API", version="1.0.0")
 
 _origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
@@ -474,7 +474,7 @@ def export_pdf(payload: PdfPayload, request: Request):
 
     def banner():
         t = Table(
-            [[Paragraph("MediTwin Lite", s_hero),
+            [[Paragraph("mediFit", s_hero),
               Paragraph(datetime.now().strftime("%b %d, %Y  ·  %I:%M %p"), s_hdate)],
              [Paragraph("Medication Safety Report", s_hsub), ""]],
             colWidths=[W * 0.65, W * 0.35],
@@ -544,7 +544,7 @@ def export_pdf(payload: PdfPayload, request: Request):
         canvas.setFont("Helvetica", 7)
         canvas.setFillColor(C_FG3)
         canvas.drawString(0.7*inch, 0.38*inch,
-            "MediTwin Lite  ·  Informational use only. Not a substitute for professional medical advice.")
+            "mediFit  ·  Informational use only. Not a substitute for professional medical advice.")
         canvas.drawRightString(letter[0]-0.7*inch, 0.38*inch, f"Page {doc.page}")
         canvas.restoreState()
 
@@ -650,7 +650,7 @@ def export_pdf(payload: PdfPayload, request: Request):
     return Response(
         content=buf.getvalue(),
         media_type="application/pdf",
-        headers={"Content-Disposition": "attachment; filename=MediTwin_Report.pdf"},
+        headers={"Content-Disposition": "attachment; filename=mediFit_Report.pdf"},
     )
 
 @app.post("/api/lab_analyze")
