@@ -191,12 +191,12 @@ export default function App() {
 
           {/* Logo + Brand */}
           <div className="flex flex-col items-center gap-4">
-            <div className="w-20 h-20 rounded-3xl bg-white shadow-lg border border-line/50 overflow-hidden flex items-center justify-center">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
+            <div className="w-24 h-24 rounded-3xl bg-white shadow-lg border border-line/50 overflow-hidden flex items-center justify-center">
+              <img src="/medifit-logo.png" alt="MediFit" className="w-full h-full object-contain p-1.5" />
             </div>
             <div className="text-center">
-              <h1 className="text-[36px] font-extrabold font-grotesk tracking-tight text-fg leading-none">
-                medi<span style={{
+              <h1 className="text-[40px] font-extrabold font-grotesk tracking-tight text-fg leading-none">
+                Medi<span style={{
                   background: 'linear-gradient(135deg, #16A34A 0%, #4ADE80 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -284,27 +284,27 @@ export default function App() {
       >
 
         {/* ── Branding bar ── */}
-        <div className={`h-[57px] px-4 border-b border-line flex items-center shrink-0
+        <div className={`h-[64px] px-4 border-b border-line flex items-center shrink-0
           ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
 
           {/* Logo */}
           <div className={`flex items-center gap-3.5 min-w-0 overflow-hidden transition-all duration-200
             ${sidebarOpen ? 'opacity-100 max-w-full' : 'opacity-0 max-w-0 pointer-events-none'}`}>
-            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shrink-0
+            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shrink-0
               shadow-sm border border-line/50 overflow-hidden">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
+              <img src="/medifit-logo.png" alt="MediFit" className="w-full h-full object-contain p-1" />
             </div>
             <div className="min-w-0 flex flex-col justify-center">
-              <div className="text-[18px] font-extrabold font-grotesk tracking-tighter text-fg leading-none">
-                mediFit
+              <div className="text-[22px] font-extrabold font-grotesk tracking-tighter text-fg leading-none">
+                MediFit
               </div>
             </div>
           </div>
 
           {/* Collapsed: icon only */}
           {!sidebarOpen && (
-            <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center shadow-sm border border-line/50 overflow-hidden">
-              <img src="/medifit-logo.png" alt="mediFit" className="w-full h-full object-contain p-1" />
+            <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-sm border border-line/50 overflow-hidden">
+              <img src="/medifit-logo.png" alt="MediFit" className="w-full h-full object-contain p-1" />
             </div>
           )}
 
@@ -338,38 +338,38 @@ export default function App() {
         {/* ── Section switcher (expanded only) ── */}
         <div className={`px-4 pt-4 pb-2 shrink-0 transition-opacity duration-200
           ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="flex items-center gap-1 p-0.5 rounded-xl border border-line bg-bg">
+          <div className="flex items-center gap-1 p-1 rounded-2xl border border-line bg-bg">
             <button
               onClick={() => switchSection('health')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11.5px] font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[12.5px] font-semibold transition-all ${
                 section === 'health'
                   ? 'bg-accent text-white shadow-sm'
                   : 'text-fg3 hover:text-fg'
               }`}
             >
-              <LayoutGrid className="w-3 h-3" />
+              <LayoutGrid className="w-3.5 h-3.5" />
               Health
             </button>
             <button
               onClick={() => switchSection('analysis')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11.5px] font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[12.5px] font-semibold transition-all ${
                 section === 'analysis'
                   ? 'bg-accent text-white shadow-sm'
                   : 'text-fg3 hover:text-fg'
               }`}
             >
-              <Shield className="w-3 h-3" />
+              <Shield className="w-3.5 h-3.5" />
               Meds
             </button>
             <button
               onClick={() => switchSection('fitness')}
-              className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-[11.5px] font-semibold transition-all ${
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[12.5px] font-semibold transition-all ${
                 section === 'fitness'
                   ? 'bg-emerald-500 text-white shadow-sm'
                   : 'text-fg3 hover:text-fg'
               }`}
             >
-              <Dumbbell className="w-3 h-3" />
+              <Dumbbell className="w-3.5 h-3.5" />
               Fitness
             </button>
           </div>
@@ -689,7 +689,7 @@ export default function App() {
       <div className="flex-1 flex flex-col h-screen min-w-0 overflow-hidden">
 
         {/* Top bar */}
-        <header className="sticky top-0 z-40 h-[57px] border-b border-line bg-card px-8
+        <header className="sticky top-0 z-40 h-[64px] border-b border-line bg-card px-8
           flex items-center justify-between shrink-0">
 
           {/* Section label + mode toggle */}
