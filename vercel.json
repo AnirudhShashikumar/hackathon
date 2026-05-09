@@ -1,12 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "dist",
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 60,
-      "excludeFiles": "mediFit-main/frontend/{node_modules,dist}/**"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
