@@ -1,8 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build",
-  "outputDirectory": "mediFit-main/frontend/dist",
-  "installCommand": "npm run install:frontend",
+  "outputDirectory": "dist",
   "functions": {
     "api/index.py": {
       "maxDuration": 60,
