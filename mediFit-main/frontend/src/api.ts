@@ -16,7 +16,10 @@ import type {
   TimelinePoint,
 } from './types';
 
-const BASE = 'http://localhost:8000/api';
+export const API_BASE = (
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api')
+).replace(/\/$/, '');
 
 function authHeaders(apiKey: string): Record<string, string> {
   return {
@@ -36,7 +39,7 @@ async function handleResponse<T>(res: Response): Promise<T> {
 // ── Meta ──────────────────────────────────────────────────
 
 export async function fetchMeta(): Promise<{ medications: string[]; conditions: string[] }> {
-  const res = await fetch(`${BASE}/meta`);
+  const res = await fetch(`${API_BASE}/meta`);
   return handleResponse(res);
 }
 
@@ -47,7 +50,7 @@ export async function analyzePatient(
   mode: string,
   apiKey: string,
 ): Promise<Analysis> {
-  const res = await fetch(`${BASE}/analyze`, {
+  const res = await fetch(`${API_BASE}/analyze`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify({ ...patient, mode }),
@@ -61,7 +64,7 @@ export async function optimizeRegimen(
   patient: Patient,
   apiKey: string,
 ): Promise<RegimenRow[]> {
-  const res = await fetch(`${BASE}/optimize`, {
+  const res = await fetch(`${API_BASE}/optimize`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify(patient),
@@ -78,7 +81,7 @@ export async function chatWithAI(
   question: string,
   apiKey: string,
 ): Promise<string> {
-  const res = await fetch(`${BASE}/chat`, {
+  const res = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify({ patient, history, question }),
@@ -93,7 +96,7 @@ export async function parseMedications(
   text: string,
   apiKey: string,
 ): Promise<ParseMedsResult> {
-  const res = await fetch(`${BASE}/parse_meds`, {
+  const res = await fetch(`${API_BASE}/parse_meds`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify({ text }),
@@ -105,14 +108,14 @@ export async function parseMedications(
 
 export async function fetchFDAData(drugA: string, drugB: string): Promise<FDAData> {
   const params = new URLSearchParams({ drug_a: drugA, drug_b: drugB });
-  const res = await fetch(`${BASE}/fda?${params}`);
+  const res = await fetch(`${API_BASE}/fda?${params}`);
   return handleResponse(res);
 }
 
 // ── Voice Input Parsing ──────────────────────────────────────
 
 export async function parseVoiceWithLLM(text: string, currentContext: string, apiKey: string): Promise<any> {
-  const res = await fetch(`${BASE}/voice_parse`, {
+  const res = await fetch(`${API_BASE}/voice_parse`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify({ text, current_tab: currentContext }),
@@ -132,7 +135,7 @@ export async function fetchRiskTimeline(
     age: String(age),
     conditions: conditions.join(','),
   });
-  const res = await fetch(`${BASE}/risk_timeline?${params}`);
+  const res = await fetch(`${API_BASE}/risk_timeline?${params}`);
   const data = await handleResponse<{ timeline: TimelinePoint[] }>(res);
   return data.timeline;
 }
@@ -147,7 +150,7 @@ export async function downloadPDF(
   ai_analysis: string,
   apiKey: string,
 ): Promise<void> {
-  const res = await fetch(`${BASE}/pdf`, {
+  const res = await fetch(`${API_BASE}/pdf`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify({ patient, risk, interactions, contraindications, ai_analysis }),
@@ -174,7 +177,7 @@ export async function fetchSchedule(
   patient: import('./types').Patient,
   apiKey: string,
 ): Promise<import('./types').MedSchedule> {
-  const res = await fetch(`${BASE}/schedule`, {
+  const res = await fetch(`${API_BASE}/schedule`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify(patient),
@@ -194,7 +197,7 @@ export async function analyzeFitness(
   },
   apiKey: string,
 ): Promise<any> {
-  const res = await fetch(`${BASE}/fitness_analyze`, {
+  const res = await fetch(`${API_BASE}/fitness_analyze`, {
     method: 'POST',
     headers: authHeaders(apiKey),
     body: JSON.stringify(data),

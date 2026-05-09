@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { FileText, Upload, Loader2, ChevronDown, ChevronUp, Trash2, AlertTriangle, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
 import { healthStore, type LabReport, type LabValue } from '../../lib/healthStore';
-
-const BASE = 'http://localhost:8000/api';
+import { API_BASE } from '../../api';
 
 const STATUS_CFG = {
   normal:   { icon: CheckCircle2, color: '#22c55e', label: 'Normal'   },
@@ -151,7 +150,7 @@ export const LabReportsTab: React.FC<{ apiKey: string }> = ({ apiKey }) => {
         reader.readAsDataURL(file);
       });
 
-      const resp = await fetch(`${BASE}/lab_analyze`, {
+      const resp = await fetch(`${API_BASE}/lab_analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
         body: JSON.stringify({ pdf_base64: base64, file_name: file.name }),

@@ -64,7 +64,6 @@ const FITNESS_TABS = [
 
 type HealthTabId   = typeof HEALTH_TABS[number]['id'];
 type AnalysisTabId = typeof ANALYSIS_TABS[number]['id'];
-type FitnessTabId  = typeof FITNESS_TABS[number]['id'];
 type Section = 'health' | 'analysis' | 'fitness';
 
 /* ── Small field label ──────────────────────────────────── */
@@ -84,9 +83,8 @@ export default function App() {
   const [section, setSection]             = useState<Section>('health');
   const [healthTab, setHealthTab]         = useState<HealthTabId>('profile');
   const [analysisTab, setAnalysisTab]     = useState<AnalysisTabId>('welcome');
-  const [fitnessTab, setFitnessTab]       = useState<FitnessTabId>('fitness');
   const [apiKey, setApiKey]               = useState('');
-  const [mode, _setMode]                   = useState<'Patient' | 'Doctor'>('Patient');
+  const [mode]                             = useState<'Patient' | 'Doctor'>('Patient');
   const [isDark, setIsDark]               = useState(true);
   const [meta, setMeta]                   = useState<{ medications: string[]; conditions: string[] }>({
     medications: [], conditions: [],
@@ -658,14 +656,16 @@ export default function App() {
               const locked = section === 'analysis' && !analysis && tab.id !== 'welcome';
               const active = section === 'health'
                 ? healthTab === tab.id
-                : analysisTab === tab.id;
+                : section === 'analysis'
+                ? analysisTab === tab.id
+                : true;
               return (
                 <button
                   key={tab.id}
                   onClick={() => {
                     if (locked) return;
                     if (section === 'health') setHealthTab(tab.id as HealthTabId);
-                    else setAnalysisTab(tab.id as AnalysisTabId);
+                    if (section === 'analysis') setAnalysisTab(tab.id as AnalysisTabId);
                   }}
                   title={tab.label}
                   className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors
@@ -746,14 +746,16 @@ export default function App() {
             const locked = section === 'analysis' && !analysis && tab.id !== 'welcome';
             const active = section === 'health'
               ? healthTab === tab.id
-              : analysisTab === tab.id;
+              : section === 'analysis'
+              ? analysisTab === tab.id
+              : true;
             return (
               <button
                 key={tab.id}
                 onClick={() => {
                   if (locked) return;
                   if (section === 'health') setHealthTab(tab.id as HealthTabId);
-                  else setAnalysisTab(tab.id as AnalysisTabId);
+                  if (section === 'analysis') setAnalysisTab(tab.id as AnalysisTabId);
                 }}
                 disabled={locked}
                 className={`flex items-center gap-2 px-4 py-3.5 text-[13px] font-medium
