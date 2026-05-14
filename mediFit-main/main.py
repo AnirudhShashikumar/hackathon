@@ -11,17 +11,22 @@ Run:
 import io
 import json
 import os
+import sys
+import traceback
 from datetime import datetime
 from itertools import combinations
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import httpx
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+
+load_dotenv()
 
 from ai_engine import (
     gemini_ask,
@@ -56,10 +61,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-from fastapi.responses import JSONResponse
-import traceback
-import sys
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
