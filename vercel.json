@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "dist",
+  "framework": null,
+  "installCommand": "cd mediFit-main/frontend && npm ci",
+  "buildCommand": "cd mediFit-main/frontend && npm run build",
+  "outputDirectory": "mediFit-main/frontend/dist",
   "rewrites": [
     {
       "source": "/api/(.*)",

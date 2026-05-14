@@ -15,15 +15,14 @@ import sys
 import traceback
 from datetime import datetime
 from itertools import combinations
-from pathlib import Path
+
 from typing import Any, Dict, List, Optional
 
 import httpx
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 
 load_dotenv()
@@ -712,32 +711,3 @@ def fitness_analyze(payload: FitnessPayload, request: Request):
     return result
 
 
-def _find_frontend_dist() -> Optional[Path]:
-    """Locate the Vite build output in local and Vercel layouts."""
-    here = Path(__file__).resolve().parent
-    for candidate in (
-        here / "frontend" / "dist",
-        here.parent / "dist",
-    ):
-        if (candidate / "index.html").exists():
-            return candidate
-    return None
-
-
-_frontend_dist = _find_frontend_dist()
-if _frontend_dist:
-    assets_dir = _frontend_dist / "assets"
-    if assets_dir.exists():
-        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
-
-    @app.get("/", include_in_schema=False)
-    @app.get("/{full_path:path}", include_in_schema=False)
-    def serve_frontend(full_path: str = ""):
-        if full_path.startswith("api/"):
-            raise HTTPException(status_code=404, detail="Not Found")
-
-        requested = (_frontend_dist / full_path).resolve()
-        if requested.is_file() and _frontend_dist in requested.parents:
-            return FileResponse(requested)
-
-        return FileResponse(_frontend_dist / "index.html")

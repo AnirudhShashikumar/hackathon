@@ -1,9 +1,9 @@
 {
-  "name": "medifit-vercel-root",
+  "name": "medifit",
   "private": true,
   "scripts": {
-    "build": "npm ci --prefix mediFit-main/frontend && npm run build --prefix mediFit-main/frontend && rm -rf dist && cp -R mediFit-main/frontend/dist dist",
-    "dev": "npm run dev --prefix mediFit-main/frontend"
+    "dev": "cd mediFit-main/frontend && npm run dev",
+    "build": "cd mediFit-main/frontend && npm ci && npm run build"
   },
   "engines": {
     "node": ">=20"
