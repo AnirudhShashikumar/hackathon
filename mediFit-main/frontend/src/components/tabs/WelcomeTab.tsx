@@ -44,13 +44,11 @@ export const WelcomeTab: React.FC<WelcomeTabProps> = ({ apiKey, onSetMeds }) => 
           {/* Headline */}
           <div className="space-y-2">
             <h1 className="text-[40px] font-bold font-grotesk tracking-tight text-fg leading-[1.05]">
-              <span style={{
+              Medi<span style={{
                 background: 'linear-gradient(135deg, #16A34A 0%, #4ADE80 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-              }}>
-                mediFit
-              </span>
+              }}>Fit</span>
             </h1>
             <p className="text-[15px] text-fg2 leading-relaxed">
               AI-powered medication safety — spot drug interactions,<br />

@@ -294,7 +294,11 @@ export default function App() {
             </div>
             <div className="min-w-0 flex flex-col justify-center">
               <div className="text-[22px] font-extrabold font-grotesk tracking-tighter text-fg leading-none">
-                MediFit
+                Medi<span style={{
+                  background: 'linear-gradient(135deg, #16A34A 0%, #4ADE80 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>Fit</span>
               </div>
             </div>
           </div>
